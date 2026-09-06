@@ -25,6 +25,9 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  query,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 
 import { db } from "./firebase";
@@ -507,10 +510,15 @@ async function initializeCollection<T extends { id: string }>(
     );
 
     if (snapshot.empty) {
-      for (const item of defaults) {
+      const baseTime = Date.now();
+      for (let i = 0; i < defaults.length; i++) {
+        const item = defaults[i];
         await setDoc(
           doc(db, collectionName, item.id),
-          item
+          {
+            ...item,
+            createdAt: new Date(baseTime + i * 1000), // Default items maintain order
+          }
         );
       }
     }
@@ -535,13 +543,13 @@ export function StoreProvider({
     useState<StoreState>(initialState);
 
   /* =======================================================
-     FIRESTORE REAL-TIME SYNC
+     FIRESTORE REAL-TIME SYNC (Ordered by createdAt ascending)
   ======================================================= */
 
   useEffect(() => {
     const unsubscribers = [
       onSnapshot(
-        collection(db, collectionNames.programs),
+        query(collection(db, collectionNames.programs), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -560,7 +568,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.members),
+        query(collection(db, collectionNames.members), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -579,7 +587,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.donations),
+        query(collection(db, collectionNames.donations), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -598,7 +606,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.expenses),
+        query(collection(db, collectionNames.expenses), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -617,7 +625,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.gallery),
+        query(collection(db, collectionNames.gallery), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -636,7 +644,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.videos),
+        query(collection(db, collectionNames.videos), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -655,7 +663,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.announcements),
+        query(collection(db, collectionNames.announcements), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -674,7 +682,7 @@ export function StoreProvider({
       ),
 
       onSnapshot(
-        collection(db, collectionNames.volunteers),
+        query(collection(db, collectionNames.volunteers), orderBy("createdAt", "asc")),
         (snapshot) => {
           const data = snapshot.docs.map(
             (item) =>
@@ -782,7 +790,7 @@ export function StoreProvider({
   }, []);
 
   /* =======================================================
-     GENERIC ADD
+     GENERIC ADD (Attaches serverTimestamp for ordering)
   ======================================================= */
 
   const addItem = useCallback(
@@ -796,7 +804,8 @@ export function StoreProvider({
         const newItem = {
           ...item,
           id,
-        } as T;
+          createdAt: serverTimestamp(),
+        };
 
         await setDoc(
           doc(db, collectionName, id),
