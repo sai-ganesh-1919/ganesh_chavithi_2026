@@ -23,7 +23,6 @@ import {
   getDocs,
   onSnapshot,
   setDoc,
-  addDoc,
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
@@ -31,7 +30,7 @@ import {
 import { db } from "./firebase";
 
 /* =========================================================
-   ID GENERATOR
+   ID
 ========================================================= */
 
 function genId() {
@@ -44,7 +43,7 @@ function genId() {
 
 const defaultPrograms: Program[] = [
   {
-    id: genId(),
+    id: "program1",
     name: "Ganesh Pratishtha (Sthapana)",
     date: "2026-08-22",
     time: "06:00 AM",
@@ -52,7 +51,7 @@ const defaultPrograms: Program[] = [
       "Lord Ganesh idol installation with Vedic rituals and Panchanga Shravanam.",
   },
   {
-    id: genId(),
+    id: "program2",
     name: "Morning Aarti & Abhishekam",
     date: "2026-08-22",
     time: "08:00 AM",
@@ -60,7 +59,7 @@ const defaultPrograms: Program[] = [
       "Daily morning aarti with Panchamrit Abhishekam. Open to all devotees.",
   },
   {
-    id: genId(),
+    id: "program3",
     name: "Bhajan Sandhya",
     date: "2026-08-23",
     time: "06:30 PM",
@@ -68,7 +67,7 @@ const defaultPrograms: Program[] = [
       "Devotional bhajan program by local artists. Special Ganesh stotras and kirtans.",
   },
   {
-    id: genId(),
+    id: "program4",
     name: "Cultural Programs - Day 1",
     date: "2026-08-24",
     time: "07:00 PM",
@@ -76,15 +75,15 @@ const defaultPrograms: Program[] = [
       "Classical dance and music performances by students of local cultural institutions.",
   },
   {
-    id: genId(),
+    id: "program5",
     name: "Annadanam",
     date: "2026-08-25",
     time: "12:00 PM",
     description:
-      "Free prasad distribution to all devotees. Pongal, pulihora, and laddu.",
+      "Free Annadanam at the temple premises. Pongal, pulihora, laddu and prasadam will be distributed to all devotees.",
   },
   {
-    id: genId(),
+    id: "program6",
     name: "Harikatha",
     date: "2026-08-26",
     time: "07:00 PM",
@@ -92,7 +91,7 @@ const defaultPrograms: Program[] = [
       "Harikatha on Ganesh Mahima by Sri Venkata Ramaiah. Traditional storytelling.",
   },
   {
-    id: genId(),
+    id: "program7",
     name: "Children Cultural Program",
     date: "2026-08-28",
     time: "05:00 PM",
@@ -100,7 +99,7 @@ const defaultPrograms: Program[] = [
       "Drawing, fancy dress, and skit competitions for children under 14.",
   },
   {
-    id: genId(),
+    id: "program8",
     name: "Youth Talent Show",
     date: "2026-08-29",
     time: "07:00 PM",
@@ -108,84 +107,88 @@ const defaultPrograms: Program[] = [
       "Dance, singing, and drama performances by youth of the colony.",
   },
   {
-    id: genId(),
-    name: "Mahila Sangeetam",
+    id: "program9",
+    name: "Orchestra",
     date: "2026-08-30",
     time: "05:30 PM",
     description:
-      "Special music program by women devotees. Devotional songs and folk music.",
+      "Special orchestra and devotional music program by women devotees.",
   },
   {
-    id: genId(),
+    id: "program10",
     name: "Grand Final Night",
     date: "2026-08-31",
     time: "07:00 PM",
     description:
-      "Grand cultural night with celebrity performances and special fireworks display.",
+      "Grand cultural night with special performances and celebrations.",
   },
   {
-    id: genId(),
-    name: "Visarjan (Nimajjanam)",
+    id: "program11",
+    name: "Visarjan (Nimajjanam) - Grand Ooregimpu",
     date: "2026-09-01",
     time: "05:00 PM",
-    venue: "Local Lake",
+    venue: "Lakshmipuram Vinayakuni Mandapam",
     description:
-      "Ganesh idol immersion procession with dhol, tasha, DJ, fireworks, disco lights and dancers through colony streets.",
+      "Sri Ganesh Swamy vari grand Visarjan Ooregimpu with Teenmaar dappulu, DJ, fireworks, disco lights and dancers. The procession will take place with devotional songs and celebrations through Lakshmipuram.",
   },
 ];
 
+/* =========================================================
+   DEFAULT MEMBERS
+========================================================= */
+
 const defaultMembers: Member[] = [
   {
-    id: genId(),
+    id: "member1",
     name: "P.Naga Srinu",
     photo:
       "https://i.ibb.co/hRJmNWBr/Whats-App-Image-2026-09-06-at-3-06-23-PM-1.jpg",
     contact: "9848012345",
   },
   {
-    id: genId(),
+    id: "member2",
     name: "A.Siddhardha",
     photo:
       "https://i.ibb.co/8LdCxpG7/Whats-App-Image-2026-09-06-at-2-40-25-PM.jpg",
     contact: "9848023456",
   },
   {
-    id: genId(),
+    id: "member3",
     name: "P.Sai Ganesh",
     photo:
       "https://i.ibb.co/Qv8rvX7g/Whats-App-Image-2026-09-06-at-3-06-17-PM.jpg",
     contact: "9848034567",
   },
   {
-    id: genId(),
+    id: "member4",
     name: "K.Pradeep",
     photo:
       "https://i.ibb.co/DP5mD23J/Whats-App-Image-2026-09-06-at-3-06-21-PM.jpg",
     contact: "9848045678",
   },
   {
-    id: genId(),
+    id: "member5",
     name: "P.Suresh",
     photo:
       "https://i.ibb.co/9HKbV4BG/Whats-App-Image-2026-09-06-at-3-06-18-PM.jpg",
     contact: "9848056789",
   },
   {
-    id: genId(),
+    id: "member6",
     name: "T.Surendra",
     photo:
       "https://i.ibb.co/yctRR6v4/Whats-App-Image-2026-09-06-at-3-06-22-PM.jpg",
     contact: "9848067890",
   },
   {
-    id: genId(),
+    id: "member7",
     name: "P.Sai Ranga",
     photo:
       "https://i.ibb.co/tTywD0Rx/Whats-App-Image-2026-09-06-at-3-06-23-PM.jpg",
     contact: "9848078901",
   },
   {
-    id: genId(),
+    id: "member8",
     name: "K.Phani Sai",
     photo:
       "https://i.ibb.co/G4yZ6Zsz/Whats-App-Image-2026-09-06-at-3-06-23-PM-2.jpg",
@@ -193,57 +196,65 @@ const defaultMembers: Member[] = [
   },
 ];
 
+/* =========================================================
+   DEFAULT DONATIONS
+========================================================= */
+
 const defaultDonations: Donation[] = [
-  { id: genId(), name: "Ravi Kumar Reddy", amount: 5000, date: "2026-08-01" },
-  { id: genId(), name: "Srinivas Rao", amount: 3000, date: "2026-08-02" },
-  { id: genId(), name: "Venkata Naidu", amount: 2500, date: "2026-08-03" },
-  { id: genId(), name: "Suresh Babu", amount: 2000, date: "2026-08-04" },
-  { id: genId(), name: "Ramesh Chandra", amount: 1500, date: "2026-08-05" },
-  { id: genId(), name: "Padma Rao", amount: 1000, date: "2026-08-06" },
-  { id: genId(), name: "Lakshmi Devi", amount: 2000, date: "2026-08-07" },
-  { id: genId(), name: "Anita Sharma", amount: 500, date: "2026-08-08" },
-  { id: genId(), name: "Krishna Murthy", amount: 3000, date: "2026-08-10" },
-  { id: genId(), name: "Vijaya Lakshmi", amount: 1000, date: "2026-08-12" },
+  { id: "donation1", name: "Ravi Kumar Reddy", amount: 5000, date: "2026-08-01" },
+  { id: "donation2", name: "Srinivas Rao", amount: 3000, date: "2026-08-02" },
+  { id: "donation3", name: "Venkata Naidu", amount: 2500, date: "2026-08-03" },
+  { id: "donation4", name: "Suresh Babu", amount: 2000, date: "2026-08-04" },
+  { id: "donation5", name: "Ramesh Chandra", amount: 1500, date: "2026-08-05" },
+  { id: "donation6", name: "Padma Rao", amount: 1000, date: "2026-08-06" },
+  { id: "donation7", name: "Lakshmi Devi", amount: 2000, date: "2026-08-07" },
+  { id: "donation8", name: "Anita Sharma", amount: 500, date: "2026-08-08" },
+  { id: "donation9", name: "Krishna Murthy", amount: 3000, date: "2026-08-10" },
+  { id: "donation10", name: "Vijaya Lakshmi", amount: 1000, date: "2026-08-12" },
 ];
+
+/* =========================================================
+   DEFAULT EXPENSES
+========================================================= */
 
 const defaultExpenses: Expense[] = [
   {
-    id: genId(),
+    id: "expense1",
     name: "Ganesh Idol",
     amount: 8000,
     date: "2026-08-15",
     description: "Lord Ganesh clay idol from Vijayawada artisan",
   },
   {
-    id: genId(),
+    id: "expense2",
     name: "Mandapam Decoration",
     amount: 5000,
     date: "2026-08-20",
     description: "Flowers, lights, and fabric decoration for mandapam",
   },
   {
-    id: genId(),
+    id: "expense3",
     name: "Sound System",
     amount: 3000,
     date: "2026-08-21",
     description: "PA system and microphones rental for 10 days",
   },
   {
-    id: genId(),
+    id: "expense4",
     name: "Prasad Materials",
     amount: 4000,
     date: "2026-08-22",
     description: "Laddu, modak, fruits, and other prasad items",
   },
   {
-    id: genId(),
+    id: "expense5",
     name: "Printing & Banners",
     amount: 1500,
     date: "2026-08-19",
     description: "Event banners, flex boards, and invitation printing",
   },
   {
-    id: genId(),
+    id: "expense6",
     name: "Cultural Program Expenses",
     amount: 2000,
     date: "2026-08-24",
@@ -251,104 +262,120 @@ const defaultExpenses: Expense[] = [
   },
 ];
 
+/* =========================================================
+   DEFAULT GALLERY
+========================================================= */
+
 const defaultGallery: GalleryItem[] = [
   {
-    id: genId(),
+    id: "gallery1",
     url: "https://images.unsplash.com/photo-1598209437948-3f0ae8a0e45d?w=600&h=400&fit=crop&auto=format",
     category: "Festival",
     caption: "Lord Ganesh beautifully decorated with flowers",
   },
   {
-    id: genId(),
+    id: "gallery2",
     url: "https://images.unsplash.com/photo-1504783124764-46ceed8f15be?w=600&h=400&fit=crop&auto=format",
     category: "Festival",
     caption: "Ganesh Chaturthi celebration with devotees",
   },
   {
-    id: genId(),
+    id: "gallery3",
     url: "https://images.unsplash.com/photo-1589463349208-95817c91f971?w=600&h=400&fit=crop&auto=format",
     category: "Decoration",
     caption: "Traditional festival decorations",
   },
   {
-    id: genId(),
+    id: "gallery4",
     url: "https://images.unsplash.com/photo-1642139161235-97e6f02a5bf5?w=600&h=400&fit=crop&auto=format",
     category: "Festival",
     caption: "Ganesh idol during Chaturthi",
   },
   {
-    id: genId(),
+    id: "gallery5",
     url: "https://images.unsplash.com/photo-1699764681875-dd04ce36b1c3?w=600&h=400&fit=crop&auto=format",
     category: "Decoration",
     caption: "Marigold flower offerings",
   },
   {
-    id: genId(),
+    id: "gallery6",
     url: "https://images.unsplash.com/photo-1664990106113-5121900ed371?w=600&h=400&fit=crop&auto=format",
     category: "Programs",
     caption: "Cultural program at mandapam",
   },
 ];
 
+/* =========================================================
+   DEFAULT VIDEOS
+========================================================= */
+
 const defaultVideos: Video[] = [
   {
-    id: genId(),
+    id: "video1",
     title: "Ganesh Chaturthi Celebration 2025",
     youtubeId: "MsHH3PSnfqs",
     description: "Full festival celebration highlights from last year",
   },
   {
-    id: genId(),
+    id: "video2",
     title: "Ganesh Aarti - Traditional",
     youtubeId: "FGlN_WtJbKk",
     description: "Morning Ganesh aarti with devotees",
   },
   {
-    id: genId(),
+    id: "video3",
     title: "Ganesh Visarjan Procession",
     youtubeId: "qyR3e9-R1bk",
     description: "Ganesh nimajjanam procession through colony",
   },
 ];
 
+/* =========================================================
+   DEFAULT ANNOUNCEMENTS
+========================================================= */
+
 const defaultAnnouncements: Announcement[] = [
   {
-    id: genId(),
+    id: "announcement1",
     title: "Festival Program Schedule Released",
     content:
-      "The complete program schedule for Lakshmipuram Ganesh Chaturthi 2026 has been released. Check the Programs section for full details. All events are at our mandapam unless specified.",
+      "The complete program schedule for Lakshmipuram Ganesh Chaturthi 2026 has been released.",
     date: "2026-08-15",
     pinned: true,
   },
   {
-    id: genId(),
+    id: "announcement2",
     title: "Volunteer Registration Open",
     content:
-      "We need enthusiastic volunteers to help organize the festival. Please register in the Volunteers section. We need help with prasad distribution, crowd management, decoration, and event coordination.",
+      "We need enthusiastic volunteers to help organize the festival.",
     date: "2026-08-10",
     pinned: true,
   },
   {
-    id: genId(),
+    id: "announcement3",
     title: "Chanda Collection Ongoing",
     content:
-      "Chanda collection is in progress. You can contribute any amount towards our festival. Contact committee members or visit the mandapam office between 8AM - 8PM daily.",
+      "Chanda collection is in progress. You can contribute any amount towards our festival.",
     date: "2026-08-05",
     pinned: false,
   },
   {
-    id: genId(),
+    id: "announcement4",
     title: "Parking Advisory",
     content:
-      "Due to expected large crowds during Visarjan day, please use public transport or park at the designated area near the school ground. Heavy vehicles are not allowed inside colony lanes.",
+      "Please use the designated parking area during festival events.",
     date: "2026-08-18",
     pinned: false,
   },
 ];
 
+/* =========================================================
+   DEFAULT VOLUNTEERS
+========================================================= */
+
 const defaultVolunteers: Volunteer[] = [
   {
-    id: genId(),
+    id: "volunteer1",
     name: "Mohan Rao",
     phone: "9848011111",
     availableTime: "Morning (6AM-12PM)",
@@ -356,7 +383,7 @@ const defaultVolunteers: Volunteer[] = [
     status: "approved",
   },
   {
-    id: genId(),
+    id: "volunteer2",
     name: "Priya Sharma",
     phone: "9848022222",
     availableTime: "Evening (4PM-10PM)",
@@ -364,7 +391,7 @@ const defaultVolunteers: Volunteer[] = [
     status: "approved",
   },
   {
-    id: genId(),
+    id: "volunteer3",
     name: "Kiran Kumar",
     phone: "9848033333",
     availableTime: "Full Day",
@@ -432,7 +459,7 @@ interface StoreActions {
 
 const ADMIN_PASSWORD = "Ganesh@2024";
 
-const COLLECTIONS = {
+const collectionNames = {
   programs: "programs",
   members: "members",
   donations: "donations",
@@ -448,145 +475,304 @@ const COLLECTIONS = {
 ========================================================= */
 
 const initialState: StoreState = {
-  programs: defaultPrograms,
-  members: defaultMembers,
-  donations: defaultDonations,
-  expenses: defaultExpenses,
-  gallery: defaultGallery,
-  videos: defaultVideos,
-  announcements: defaultAnnouncements,
-  volunteers: defaultVolunteers,
+  programs: [],
+  members: [],
+  donations: [],
+  expenses: [],
+  gallery: [],
+  videos: [],
+  announcements: [],
+  volunteers: [],
   isAdmin: false,
 };
 
 /* =========================================================
-   FIREBASE HELPERS
+   CONTEXT
 ========================================================= */
 
-async function addDefaultsIfCollectionEmpty<T extends { id: string }>(
+const StoreContext =
+  createContext<(StoreState & StoreActions) | null>(null);
+
+/* =========================================================
+   FIREBASE DEFAULT INITIALIZER
+========================================================= */
+
+async function initializeCollection<T extends { id: string }>(
   collectionName: string,
   defaults: T[]
 ) {
   try {
-    const snapshot = await getDocs(collection(db, collectionName));
+    const snapshot = await getDocs(
+      collection(db, collectionName)
+    );
 
     if (snapshot.empty) {
       for (const item of defaults) {
-        await setDoc(doc(db, collectionName, item.id), item);
+        await setDoc(
+          doc(db, collectionName, item.id),
+          item
+        );
       }
     }
   } catch (error) {
     console.error(
-      `Firebase initialization failed for ${collectionName}:`,
+      `Error initializing ${collectionName}:`,
       error
     );
   }
 }
 
 /* =========================================================
-   STORE PROVIDER
+   PROVIDER
 ========================================================= */
-
-const StoreContext = createContext<(StoreState & StoreActions) | null>(null);
 
 export function StoreProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [state, setState] = useState<StoreState>(initialState);
+  const [state, setState] =
+    useState<StoreState>(initialState);
 
-  /* -------------------------------------------------------
-     REAL-TIME FIRESTORE LISTENERS
-  ------------------------------------------------------- */
+  /* =======================================================
+     FIRESTORE REAL-TIME SYNC
+  ======================================================= */
 
   useEffect(() => {
-    const unsubscribers = Object.entries(COLLECTIONS).map(
-      ([stateKey, collectionName]) => {
-        return onSnapshot(
-          collection(db, collectionName),
-          (snapshot) => {
-            const data = snapshot.docs.map((item) => ({
-              id: item.id,
-              ...item.data(),
-            }));
+    const unsubscribers = [
+      onSnapshot(
+        collection(db, collectionNames.programs),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Program
+          );
 
-            setState((current) => ({
-              ...current,
-              [stateKey]: data,
-            }));
-          },
-          (error) => {
-            console.error(
-              `Firestore listener error (${collectionName}):`,
-              error
-            );
-          }
-        );
-      }
-    );
+          setState((s) => ({
+            ...s,
+            programs: data,
+          }));
+        },
+        (error) => console.error("Programs:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.members),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Member
+          );
+
+          setState((s) => ({
+            ...s,
+            members: data,
+          }));
+        },
+        (error) => console.error("Members:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.donations),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Donation
+          );
+
+          setState((s) => ({
+            ...s,
+            donations: data,
+          }));
+        },
+        (error) => console.error("Donations:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.expenses),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Expense
+          );
+
+          setState((s) => ({
+            ...s,
+            expenses: data,
+          }));
+        },
+        (error) => console.error("Expenses:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.gallery),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as GalleryItem
+          );
+
+          setState((s) => ({
+            ...s,
+            gallery: data,
+          }));
+        },
+        (error) => console.error("Gallery:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.videos),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Video
+          );
+
+          setState((s) => ({
+            ...s,
+            videos: data,
+          }));
+        },
+        (error) => console.error("Videos:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.announcements),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Announcement
+          );
+
+          setState((s) => ({
+            ...s,
+            announcements: data,
+          }));
+        },
+        (error) => console.error("Announcements:", error)
+      ),
+
+      onSnapshot(
+        collection(db, collectionNames.volunteers),
+        (snapshot) => {
+          const data = snapshot.docs.map(
+            (item) =>
+              ({
+                id: item.id,
+                ...item.data(),
+              }) as Volunteer
+          );
+
+          setState((s) => ({
+            ...s,
+            volunteers: data,
+          }));
+        },
+        (error) => console.error("Volunteers:", error)
+      ),
+    ];
 
     return () => {
-      unsubscribers.forEach((unsubscribe) => unsubscribe());
+      unsubscribers.forEach((unsubscribe) =>
+        unsubscribe()
+      );
     };
   }, []);
 
-  /* -------------------------------------------------------
-     LOGIN
-  ------------------------------------------------------- */
+  /* =======================================================
+     INITIALIZE DEFAULT DATA
+  ======================================================= */
 
-  const login = useCallback((password: string) => {
-    if (password === ADMIN_PASSWORD) {
-      setState((s) => ({
-        ...s,
-        isAdmin: true,
-      }));
+  useEffect(() => {
+    async function initialize() {
+      await initializeCollection(
+        "programs",
+        defaultPrograms
+      );
 
-      // Initialize Firebase collections after admin login.
-      void Promise.all([
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.programs,
-          defaultPrograms
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.members,
-          defaultMembers
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.donations,
-          defaultDonations
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.expenses,
-          defaultExpenses
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.gallery,
-          defaultGallery
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.videos,
-          defaultVideos
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.announcements,
-          defaultAnnouncements
-        ),
-        addDefaultsIfCollectionEmpty(
-          COLLECTIONS.volunteers,
-          defaultVolunteers
-        ),
-      ]);
+      await initializeCollection(
+        "members",
+        defaultMembers
+      );
 
-      return true;
+      await initializeCollection(
+        "donations",
+        defaultDonations
+      );
+
+      await initializeCollection(
+        "expenses",
+        defaultExpenses
+      );
+
+      await initializeCollection(
+        "gallery",
+        defaultGallery
+      );
+
+      await initializeCollection(
+        "videos",
+        defaultVideos
+      );
+
+      await initializeCollection(
+        "announcements",
+        defaultAnnouncements
+      );
+
+      await initializeCollection(
+        "volunteers",
+        defaultVolunteers
+      );
     }
 
-    return false;
+    void initialize();
   }, []);
 
-  /* -------------------------------------------------------
+  /* =======================================================
+     LOGIN
+  ======================================================= */
+
+  const login = useCallback(
+    (password: string) => {
+      if (password === ADMIN_PASSWORD) {
+        setState((s) => ({
+          ...s,
+          isAdmin: true,
+        }));
+
+        return true;
+      }
+
+      return false;
+    },
+    []
+  );
+
+  /* =======================================================
      LOGOUT
-  ------------------------------------------------------- */
+  ======================================================= */
 
   const logout = useCallback(() => {
     setState((s) => ({
@@ -602,31 +788,25 @@ export function StoreProvider({
   const addItem = useCallback(
     async <T extends { id: string }>(
       collectionName: string,
-      item: Omit<T, "id">,
-      stateKey: keyof StoreState
+      item: Omit<T, "id">
     ) => {
       try {
-        const newId = genId();
+        const id = genId();
 
         const newItem = {
           ...item,
-          id: newId,
+          id,
         } as T;
 
         await setDoc(
-          doc(db, collectionName, newId),
+          doc(db, collectionName, id),
           newItem
         );
-
-        setState((current) => ({
-          ...current,
-          [stateKey]: [
-            ...(current[stateKey] as unknown as T[]),
-            newItem,
-          ],
-        }));
       } catch (error) {
-        console.error("Add failed:", error);
+        console.error(
+          `Error adding to ${collectionName}:`,
+          error
+        );
       }
     },
     []
@@ -639,25 +819,18 @@ export function StoreProvider({
   const updateItem = useCallback(
     async <T extends { id: string }>(
       collectionName: string,
-      item: T,
-      stateKey: keyof StoreState
+      item: T
     ) => {
       try {
         await updateDoc(
           doc(db, collectionName, item.id),
           item as Record<string, unknown>
         );
-
-        setState((current) => ({
-          ...current,
-          [stateKey]: (
-            current[stateKey] as unknown as T[]
-          ).map((existing) =>
-            existing.id === item.id ? item : existing
-          ),
-        }));
       } catch (error) {
-        console.error("Update failed:", error);
+        console.error(
+          `Error updating ${collectionName}:`,
+          error
+        );
       }
     },
     []
@@ -668,22 +841,19 @@ export function StoreProvider({
   ======================================================= */
 
   const deleteItem = useCallback(
-    async <T extends { id: string }>(
+    async (
       collectionName: string,
-      id: string,
-      stateKey: keyof StoreState
+      id: string
     ) => {
       try {
-        await deleteDoc(doc(db, collectionName, id));
-
-        setState((current) => ({
-          ...current,
-          [stateKey]: (
-            current[stateKey] as unknown as T[]
-          ).filter((item) => item.id !== id),
-        }));
+        await deleteDoc(
+          doc(db, collectionName, id)
+        );
       } catch (error) {
-        console.error("Delete failed:", error);
+        console.error(
+          `Error deleting from ${collectionName}:`,
+          error
+        );
       }
     },
     []
@@ -695,33 +865,21 @@ export function StoreProvider({
 
   const addProgram = useCallback(
     (p: Omit<Program, "id">) => {
-      void addItem<Program>(
-        COLLECTIONS.programs,
-        p,
-        "programs"
-      );
+      void addItem("programs", p);
     },
     [addItem]
   );
 
   const updateProgram = useCallback(
     (p: Program) => {
-      void updateItem<Program>(
-        COLLECTIONS.programs,
-        p,
-        "programs"
-      );
+      void updateItem("programs", p);
     },
     [updateItem]
   );
 
   const deleteProgram = useCallback(
     (id: string) => {
-      void deleteItem<Program>(
-        COLLECTIONS.programs,
-        id,
-        "programs"
-      );
+      void deleteItem("programs", id);
     },
     [deleteItem]
   );
@@ -732,33 +890,21 @@ export function StoreProvider({
 
   const addMember = useCallback(
     (m: Omit<Member, "id">) => {
-      void addItem<Member>(
-        COLLECTIONS.members,
-        m,
-        "members"
-      );
+      void addItem("members", m);
     },
     [addItem]
   );
 
   const updateMember = useCallback(
     (m: Member) => {
-      void updateItem<Member>(
-        COLLECTIONS.members,
-        m,
-        "members"
-      );
+      void updateItem("members", m);
     },
     [updateItem]
   );
 
   const deleteMember = useCallback(
     (id: string) => {
-      void deleteItem<Member>(
-        COLLECTIONS.members,
-        id,
-        "members"
-      );
+      void deleteItem("members", id);
     },
     [deleteItem]
   );
@@ -769,33 +915,21 @@ export function StoreProvider({
 
   const addDonation = useCallback(
     (d: Omit<Donation, "id">) => {
-      void addItem<Donation>(
-        COLLECTIONS.donations,
-        d,
-        "donations"
-      );
+      void addItem("donations", d);
     },
     [addItem]
   );
 
   const updateDonation = useCallback(
     (d: Donation) => {
-      void updateItem<Donation>(
-        COLLECTIONS.donations,
-        d,
-        "donations"
-      );
+      void updateItem("donations", d);
     },
     [updateItem]
   );
 
   const deleteDonation = useCallback(
     (id: string) => {
-      void deleteItem<Donation>(
-        COLLECTIONS.donations,
-        id,
-        "donations"
-      );
+      void deleteItem("donations", id);
     },
     [deleteItem]
   );
@@ -806,33 +940,21 @@ export function StoreProvider({
 
   const addExpense = useCallback(
     (e: Omit<Expense, "id">) => {
-      void addItem<Expense>(
-        COLLECTIONS.expenses,
-        e,
-        "expenses"
-      );
+      void addItem("expenses", e);
     },
     [addItem]
   );
 
   const updateExpense = useCallback(
     (e: Expense) => {
-      void updateItem<Expense>(
-        COLLECTIONS.expenses,
-        e,
-        "expenses"
-      );
+      void updateItem("expenses", e);
     },
     [updateItem]
   );
 
   const deleteExpense = useCallback(
     (id: string) => {
-      void deleteItem<Expense>(
-        COLLECTIONS.expenses,
-        id,
-        "expenses"
-      );
+      void deleteItem("expenses", id);
     },
     [deleteItem]
   );
@@ -843,33 +965,21 @@ export function StoreProvider({
 
   const addGalleryItem = useCallback(
     (g: Omit<GalleryItem, "id">) => {
-      void addItem<GalleryItem>(
-        COLLECTIONS.gallery,
-        g,
-        "gallery"
-      );
+      void addItem("gallery", g);
     },
     [addItem]
   );
 
   const updateGalleryItem = useCallback(
     (g: GalleryItem) => {
-      void updateItem<GalleryItem>(
-        COLLECTIONS.gallery,
-        g,
-        "gallery"
-      );
+      void updateItem("gallery", g);
     },
     [updateItem]
   );
 
   const deleteGalleryItem = useCallback(
     (id: string) => {
-      void deleteItem<GalleryItem>(
-        COLLECTIONS.gallery,
-        id,
-        "gallery"
-      );
+      void deleteItem("gallery", id);
     },
     [deleteItem]
   );
@@ -880,33 +990,21 @@ export function StoreProvider({
 
   const addVideo = useCallback(
     (v: Omit<Video, "id">) => {
-      void addItem<Video>(
-        COLLECTIONS.videos,
-        v,
-        "videos"
-      );
+      void addItem("videos", v);
     },
     [addItem]
   );
 
   const updateVideo = useCallback(
     (v: Video) => {
-      void updateItem<Video>(
-        COLLECTIONS.videos,
-        v,
-        "videos"
-      );
+      void updateItem("videos", v);
     },
     [updateItem]
   );
 
   const deleteVideo = useCallback(
     (id: string) => {
-      void deleteItem<Video>(
-        COLLECTIONS.videos,
-        id,
-        "videos"
-      );
+      void deleteItem("videos", id);
     },
     [deleteItem]
   );
@@ -917,33 +1015,21 @@ export function StoreProvider({
 
   const addAnnouncement = useCallback(
     (a: Omit<Announcement, "id">) => {
-      void addItem<Announcement>(
-        COLLECTIONS.announcements,
-        a,
-        "announcements"
-      );
+      void addItem("announcements", a);
     },
     [addItem]
   );
 
   const updateAnnouncement = useCallback(
     (a: Announcement) => {
-      void updateItem<Announcement>(
-        COLLECTIONS.announcements,
-        a,
-        "announcements"
-      );
+      void updateItem("announcements", a);
     },
     [updateItem]
   );
 
   const deleteAnnouncement = useCallback(
     (id: string) => {
-      void deleteItem<Announcement>(
-        COLLECTIONS.announcements,
-        id,
-        "announcements"
-      );
+      void deleteItem("announcements", id);
     },
     [deleteItem]
   );
@@ -954,82 +1040,70 @@ export function StoreProvider({
 
   const addVolunteer = useCallback(
     (v: Omit<Volunteer, "id">) => {
-      void addItem<Volunteer>(
-        COLLECTIONS.volunteers,
-        v,
-        "volunteers"
-      );
+      void addItem("volunteers", v);
     },
     [addItem]
   );
 
   const updateVolunteer = useCallback(
     (v: Volunteer) => {
-      void updateItem<Volunteer>(
-        COLLECTIONS.volunteers,
-        v,
-        "volunteers"
-      );
+      void updateItem("volunteers", v);
     },
     [updateItem]
   );
 
   const deleteVolunteer = useCallback(
     (id: string) => {
-      void deleteItem<Volunteer>(
-        COLLECTIONS.volunteers,
-        id,
-        "volunteers"
-      );
+      void deleteItem("volunteers", id);
     },
     [deleteItem]
   );
 
   /* =======================================================
-     PROVIDER
+     STORE VALUE
   ======================================================= */
 
+  const storeValue: StoreState & StoreActions = {
+    ...state,
+
+    login,
+    logout,
+
+    addProgram,
+    updateProgram,
+    deleteProgram,
+
+    addMember,
+    updateMember,
+    deleteMember,
+
+    addDonation,
+    updateDonation,
+    deleteDonation,
+
+    addExpense,
+    updateExpense,
+    deleteExpense,
+
+    addGalleryItem,
+    updateGalleryItem,
+    deleteGalleryItem,
+
+    addVideo,
+    updateVideo,
+    deleteVideo,
+
+    addAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
+
+    addVolunteer,
+    updateVolunteer,
+    deleteVolunteer,
+  };
+
   return (
-    <StoreContext.Provider
-      value={{
-        ...state,
-
-        login,
-        logout,
-
-        addProgram,
-        updateProgram,
-        deleteProgram,
-
-        addMember,
-        updateMember,
-        deleteMember,
-
-        addDonation,
-        updateDonation,
-        deleteDonation,
-
-        addExpense,
-        updateExpense,
-        deleteExpense,
-
-        addGalleryItem,
-        updateGalleryItem,
-        deleteGalleryItem,
-
-        addVideo,
-        updateVideo,
-        deleteVideo,
-
-        addAnnouncement,
-        updateAnnouncement,
-        deleteAnnouncement,
-
-        addVolunteer,
-        updateVolunteer,
-        deleteVolunteer,
-      }}
-    >
+    <StoreContext.Provider value={storeValue}>
       {children}
     </StoreContext.Provider>
   );

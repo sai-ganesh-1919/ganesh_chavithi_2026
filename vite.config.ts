@@ -8,12 +8,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
+
   server: {
     port: 5173,
+  },
+
+  build: {
+    chunkSizeWarningLimit: 1000,
   },
 })
