@@ -3,7 +3,7 @@ import { useStore } from "../store";
 import Modal, { Field, ActionBtn } from "../components/Modal";
 import type { Donation } from "../types";
 
-const empty = (): Omit<Donation, "id"> => ({ name: "", amount: 0, date: "" });
+const empty = (): Omit<Donation, "id"> => ({ name: "", amount: 0 });
 
 export default function Chanda() {
   const { donations, isAdmin, addDonation, updateDonation, deleteDonation } = useStore();
@@ -18,7 +18,7 @@ export default function Chanda() {
     .sort((a, b) => b.amount - a.amount);
 
   function openAdd() { setEditing(null); setForm(empty()); setShowModal(true); }
-  function openEdit(d: Donation) { setEditing(d); setForm({ name: d.name, amount: d.amount, date: d.date || "" }); setShowModal(true); }
+  function openEdit(d: Donation) { setEditing(d); setForm({ name: d.name, amount: d.amount }); setShowModal(true); }
 
   function save() {
     if (!form.name || !form.amount) return;
@@ -70,19 +70,15 @@ export default function Chanda() {
       <div className="rounded-2xl border border-orange-900/40 overflow-hidden" style={{ background: "#1A0400" }}>
         <div className="grid grid-cols-12 gap-2 px-5 py-3 text-xs font-semibold text-orange-400 uppercase tracking-wider border-b border-orange-900/30" style={{ background: "#2A0800" }}>
           <div className="col-span-1">#</div>
-          <div className="col-span-5">Donor Name</div>
+          <div className="col-span-7">Donor Name</div>
           <div className="col-span-3">Amount</div>
-          <div className="col-span-2">Date</div>
           {isAdmin && <div className="col-span-1">Actions</div>}
         </div>
         {filtered.map((d, i) => (
           <div key={d.id} className="grid grid-cols-12 gap-2 px-5 py-3 items-center border-b border-orange-900/20 hover:bg-orange-900/10 transition-colors">
             <div className="col-span-1 text-orange-400/60 text-sm">{i + 1}</div>
-            <div className="col-span-5 font-medium text-yellow-100 text-sm">{d.name}</div>
+            <div className="col-span-7 font-medium text-yellow-100 text-sm">{d.name}</div>
             <div className="col-span-3 font-semibold text-green-400 text-sm">₹{d.amount.toLocaleString("en-IN")}</div>
-            <div className="col-span-2 text-orange-300/70 text-sm">
-              {d.date ? new Date(d.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "—"}
-            </div>
             {isAdmin && (
               <div className="col-span-1 flex gap-1">
                 <button onClick={() => openEdit(d)} className="p-1 rounded text-orange-400 hover:text-orange-200 transition-colors text-xs">✏️</button>
@@ -100,7 +96,6 @@ export default function Chanda() {
         <Modal title={editing ? "Edit Donor" : "Add Donor"} onClose={() => setShowModal(false)}>
           <Field label="Donor Name"><input value={form.name} onChange={e => f("name", e.target.value)} placeholder="Full name" /></Field>
           <Field label="Amount (₹)"><input type="number" value={form.amount || ""} onChange={e => f("amount", Number(e.target.value))} placeholder="Enter amount" /></Field>
-          <Field label="Date (optional)"><input type="date" value={form.date} onChange={e => f("date", e.target.value)} /></Field>
           <div className="flex gap-3 pt-2">
             <ActionBtn onClick={save} variant="primary">{editing ? "Update" : "Add Donor"}</ActionBtn>
             <ActionBtn onClick={() => setShowModal(false)} variant="ghost">Cancel</ActionBtn>

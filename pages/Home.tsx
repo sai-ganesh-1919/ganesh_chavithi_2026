@@ -68,8 +68,8 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="grid grid-cols-3 gap-8 max-w-md mx-auto">
             {[
               { num: "10", label: "Days" },
-              { num: "11", label: "Programs" },
-              { num: "8", label: "Members" },
+              { num: "10", label: "Programs" },
+              { num: "12", label: "Members" },
             ].map(s => (
               <div key={s.label} className="text-center">
                 <div className="font-cinzel text-3xl font-bold gold-text">{s.num}</div>
